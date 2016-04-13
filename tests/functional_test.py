@@ -4,28 +4,32 @@ import random
 import unittest
 import analytics
 import io_geojson
+import point
 import utils
 sys.path.insert(0, os.path.abspath('..'))
+
 
 
 class TestFunctionalPointPattern(unittest.TestCase):
 
     def setUp(self):
+        self.marks = ['England', 'France', 'Castile', 'Portugal', 'Burgundy',
+                      'Aragon', 'Austria', 'Ming', 'Apache', 'Brittany', 'Muscovy']
         random.seed(12345)
         i = 0
         self.points = []
         while i < 100:
-            seed = (round(random.random(),2), round(random.random(),2))
-            self.points.append(seed)
-            n_additional = random.randint(5,10)
+            seed = (round(random.random(), 2), round(random.random(), 2))
+            self.points.append(point.Point(seed[0], seed[1], random.choice(self.marks)))
+            n_additional = random.randint(5, 10)
             i += 1
-            c = random.choice([0,1])
+            c = random.choice([0, 1])
             if c:
                 for j in range(n_additional):
                     x_offset = random.randint(0,10) / 100
                     y_offset = random.randint(0,10) / 100
-                    pt = (round(seed[0] + x_offset, 2), round(seed[1] + y_offset,2))
-                    self.points.append(pt)
+                    pt = (round(seed[0] + x_offset, 2), round(seed[1] + y_offset, 2))
+                    self.points.append(point.Point(pt[0], pt[1], random.choice(self.marks)))
                     i += 1
                     if i == 100:
                         break

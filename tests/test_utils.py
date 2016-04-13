@@ -118,5 +118,5 @@ class TestUtils(unittest.TestCase):
     def test_check_yer_sig(self):
         permutations = utils.permutations(99)
         lower, upper = utils.crit_tations(permutations)
-        significant = utils.check_yer_sig(lower, upper, observed)
+        significant = utils.check_yer_sig(lower, upper, analytics.average_nearest_neighbor_distance(self.points))
         self.assertTrue(significant)

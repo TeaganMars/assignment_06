@@ -1,5 +1,6 @@
 import math
-
+import point
+import utils
 
 def find_largest_city(gj):
     list_cities = []
@@ -44,16 +45,31 @@ def mean_center(points):
     return x, y
 
 
-def average_nearest_neighbor_distance(points):
-    shortest_path = []
-    for num1, p_one in enumerate(points):
-        distance = []
-        for num2, p_two in enumerate(points):
-            if num1 != num2:
-                distance.append(math.sqrt((p_one[0] - p_two[0])**2 + (p_one[1] - p_two[1])**2))
-        shortest_path.append(min(distance))
-    mean_d = sum(shortest_path)/len(shortest_path)
-    return mean_d
+def average_nearest_neighbor_distance(points, mark=None):
+    if mark!=None:
+        marked_points = []
+        shortest_path = []
+        for x in range(len(points)):
+            if points[x].get_mark() == mark:
+                marked_points.append(points[x].get_point())
+        for num1, p_one in enumerate(marked_points):
+            distance = []
+            for num2, p_two in enumerate(marked_points):
+                if num1 != num2:
+                    distance.append(utils.euclidean_distance(p_one, p_two))
+            shortest_path.append(min(distance))
+        mean_d = sum(shortest_path)/len(shortest_path)
+        return mean_d
+    else:
+        shortest_path = []
+        for num1, p_one in enumerate(points):
+            distance = []
+            for num2, p_two in enumerate(points):
+                if num1 != num2:
+                    distance.append(utils.euclidean_distance(p_one, p_two))
+            shortest_path.append(min(distance))
+        mean_d = sum(shortest_path)/len(shortest_path)
+        return mean_d
 
 
 def minimum_bounding_rectangle(points):

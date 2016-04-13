@@ -1,6 +1,7 @@
 import math
 import random
 import analytics
+import point
 
 
 def getx(point):
@@ -62,5 +63,18 @@ def crit_tations(perms):
 
 def check_yer_sig(max_tation2, min_tation2, obser_tation):
     return min_tation2 <= obser_tation or obser_tation <= max_tation2
+
+
+def create_random_marked_points(n, marks=[]):
+    random.seed(1234)
+    random_points = []
+    for i in range(n):
+        x_point = random.randint(0, 10)
+        y_point = random.randint(0, 10)
+        if len(marks) == 0:
+            random_points.append(Point(x_point, y_point))
+        else:
+            make_marks = random.choice(marks)
+            random_points.append(Point, x_point, y_point, make_marks)
 
 
